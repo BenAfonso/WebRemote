@@ -4,6 +4,8 @@ from django.shortcuts import render_to_response,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
+from django.http import StreamingHttpResponse
+from django.core.servers.basehttp import FileWrapper
 # Create your views here.
 
 @login_required(login_url='/')
@@ -28,4 +30,14 @@ def switch_off(request,channel,plugNumber):
     return redirect('/switchs/')
 
     
-    
+def stream(request):
+    return render(request, 'stream.html')
+
+
+def stream_data(request):
+    from gevent import socket
+
+    s = socket.create_connection(("127.0.0.1", 1234))
+    sf = s.makefile()
+
+    return StreamingHttpResponse(FileWrapper(sf), content_type='text/plain')

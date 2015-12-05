@@ -43,14 +43,12 @@
               <nav>
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="/switchs/">Home</a></li>
-		  <li><a href="/stream/">Stream</a></li>
                 </ul>
               </nav>
             </div>
           </div>
 
-          <div class="inner cover">
-            <h1 class="cover-heading">Lampe du salon.</h1>
+          <div class="inner cover            <h1 class="cover-heading">Lampe du salon.</h1>
             <p class="lead">
                   <a href="{% url 'switchon' channel='0' plugNumber='0' %}"><button class="btn btn-info">On</button></a>
                   <a href="{% url 'switchoff' channel='0' plugNumber='0' %}"><button class="btn btn-info">Off</button></a>

@@ -9,6 +9,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+	<meta http-equiv="refresh" content="300">
     <link rel="icon" href="../../favicon.ico">
 
     <title>DarkyPiDomotik</title>
@@ -42,25 +43,28 @@
               <h3 class="masthead-brand">DarkyPi Domotik</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  <li class="active"><a href="/switchs/">Home</a></li>
-		  <li><a href="/stream/">Stream</a></li>
+                  <li><a href="/switchs/">Home</a></li>
+		  <li class="active"><a href="/stream/">Stream</a></li>
                 </ul>
               </nav>
             </div>
           </div>
+          <script>
+function stream_data(){
+    $.when(stream_req()).done(function(input_data){
+        $("#stream").attr("src", "data:image/png;base64," + input_data);
+    });
+}
+function stream_req() {
+    return $.ajax("{% url 'RCSwitch.views.stream_data' %}");
+}
+</script>
 
-          <div class="inner cover">
-            <h1 class="cover-heading">Lampe du salon.</h1>
-            <p class="lead">
-                  <a href="{% url 'switchon' channel='0' plugNumber='0' %}"><button class="btn btn-info">On</button></a>
-                  <a href="{% url 'switchoff' channel='0' plugNumber='0' %}"><button class="btn btn-info">Off</button></a>
-            </p>
-            <h1 class="cover-heading">Radiateur</h1>
-            <p class="lead">
-                  <a href="{% url 'switchon' channel='0' plugNumber='1' %}"><button class="btn btn-info">On</button></a>
-                  <a href="{% url 'switchoff' channel='0' plugNumber='1' %}"><button class="btn btn-info">Off</button></a>
-            </p>
-          </div>
+<h1 class="page-header">Stream Live</span></h1>
+<div class="embed-responsive embed-responsive-16by9">
+  <img class="embed-responsive-item" id="stream" onload="stream_data()" src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=">
+</div>
+
 
           <div class="mastfoot">
             <div class="inner">
